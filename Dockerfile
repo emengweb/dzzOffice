@@ -7,9 +7,11 @@ RUN apt-get update && apt-get install -y libzip-dev libfreetype6-dev \
   && docker-php-ext-install gd \
   && docker-php-ext-install zip
 
-RUN curl -o /tmp/dzzoffice.tar.gz https://github.com/zyx0814/dzzoffice/archive/master.zip \
-  && tar -xzvf /tmp/dzzoffice.tar.gz -C /tmp \
-  && rm -rf /tmp/dzzoffice.tar.gz /tmp/dzzoffice/*.md \
-  && mv /tmp/dzzoffice/* /var/www/html/
+RUN apt-get install -y zip
+
+RUN curl -o /tmp/dzzoffice.zip https://codeload.github.com/zyx0814/dzzoffice/zip/master \
+  && unzip -o -d  /tmp /tmp/dzzoffice.zip \
+  && rm -rf /tmp/dzzoffice.zip /tmp/dzzoffice/*.md \
+  && mv /tmp/dzzoffice-master/* /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html/
